@@ -1,20 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// // import React from 'react';
+// // import {
+// //   ApolloClient,
+// //   InMemoryCache,
+// //   ApolloProvider,
+// // } from "@apollo/client";
+// // import Apps from './src/Apps';
+
+// // const client = new ApolloClient({
+// //   uri: 'https://48p1r2roz4.sse.codesandbox.io',
+// //   cache: new InMemoryCache()
+// // });
+
+// // const App = () => {
+// //   return (
+// //     <ApolloProvider client={client}>
+// //       <Apps />
+// //     </ApolloProvider>
+// //   );
+// // }
+
+// // export default App;
+
+// import React from 'react';
+// import { AppRegistry } from 'react-native';
+// import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+// import Apps from './src/Apps';
+
+// // Initialize Apollo Client
+// const client = new ApolloClient({
+//   uri: 'localhost:4000/graphql',
+//   cache: new InMemoryCache()
+// });
+
+// export default function App() {
+//   return (
+//     <ApolloProvider client={client}>
+//       <Apps />
+//     </ApolloProvider>
+//   )
+// };
+
+// // AppRegistry.registerComponent('MyApplication', () => App);
+
+import React from 'react';
+import { ApolloProvider } from '@apollo/client';
+import Apps from './src/Apps';
+import client from './src/client';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ApolloProvider client={client}>
+      <Apps />
+    </ApolloProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
