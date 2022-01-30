@@ -13,9 +13,9 @@ const wsLink = new WebSocketLink({
   options: {
     reconnect: true,
     // 요 아래는 token 받아야 할 때.(header 가져오기)
-    // connectionParams: {
-    //   authToken: user.authToken,
-    // },
+    connectionParams: {
+      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQzNTAxMDY4fQ.MDaGQGL62FA0YKx87uPZnr_-WRuzIZUMTAkvOnvgBdQ",
+    },
   }
 });
 

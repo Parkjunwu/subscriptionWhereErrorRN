@@ -48,11 +48,13 @@ const Apps = () => {
     });
     setSub(false);
   },[data,sub])
+
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
       {loading && <Text>Loading</Text>}
       {data && <Text>data</Text>}
+      {data?.seeMessage.map(message => <Text key={message.id}>{message.payload}</Text>)}
     </View>
   );
 }
@@ -67,3 +69,129 @@ const styles = StyleSheet.create({
 });
 
 export default Apps;
+
+// import { gql, useApolloClient, useQuery } from "@apollo/client";
+// import React, { useEffect, useState } from "react";
+// import { StyleSheet, Text, View } from "react-native";
+
+// const MESSAGE_FRAGMENT = gql`
+//   fragment MessageFragment on Message {
+//     id
+//     payload
+//     user{
+//       userName
+//       avatar
+//     }
+//     read
+//   }
+// `;
+
+
+// const ROOM_UPDATES = gql`
+//   subscription roomUpdate($id: Int!) {
+//     roomUpdate(id:$id) {
+//       ...MessageFragment
+//     }
+//   }
+//   ${MESSAGE_FRAGMENT}
+// `;
+
+// const SEE_ROOM = gql`
+//   query seeMessage($id:Int!) {
+//     seeMessage(id:$id){
+//       id
+//       messages{
+//         ...MessageFragment
+//       }
+//     }
+//   }
+//   ${MESSAGE_FRAGMENT}
+// `;
+
+// const Room = () => {
+  
+//   const {data,loading,refetch,subscribeToMore} = useQuery(SEE_ROOM,{
+//     variables:{
+//       id:1
+//     },
+    
+//   });
+  
+//   const client = useApolloClient()
+//   const updateQuery= (_, options) => {
+//     console.log(3)
+//     // console.log(_)
+//     // console.log(options)
+//     const {subscriptionData:{data:{roomUpdate:message}}} = options;
+//     console.log(4)
+//     if(message.id){
+//       const saveGettingSubscriptionMessageToCache = client.cache.writeFragment({
+//         // id:`Comment:${id}`,
+//         fragment:gql`
+//           fragment NewMessage on Message {
+//             id
+//             payload
+//             user{
+//               userName
+//               avatar
+//             }
+//             read
+//           }
+//         `,
+//         data: message,
+//       })
+//       console.log(5)
+//       client.cache.modify({
+//         id:`Room:1`,
+//         fields:{
+//           messages(prev){
+//             const existingArray = prev.find(aMessage=>aMessage.__ref === saveGettingSubscriptionMessageToCache.__ref)
+//             if(existingArray) return prev;
+//             return [...prev,saveGettingSubscriptionMessageToCache];
+//           }
+//         }
+//       });
+//     }
+//     console.log(6)
+//     return null;
+//   }
+
+//   const [sub,setSub] = useState(true);
+//   useEffect(()=>{
+//     if(!data || !sub) return;
+//     console.log(1)
+//     subscribeToMore({
+//       document:ROOM_UPDATES,
+//       variables:{id:1},
+//       updateQuery,
+//     });
+//     setSub(false);
+//     console.log(2)
+//   },[data,sub])
+
+// console.log(data)
+//   return (
+//     <View style={styles.container}>
+//       <Text>Open up App.tsx to start working on your app!</Text>
+//       {loading && <Text>Loading</Text>}
+//       {data && <Text>data</Text>}
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
+// export default Room;
+
+
+
+
+
+
+  
